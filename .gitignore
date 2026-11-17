@@ -1,0 +1,76 @@
+# ============================================================================
+# DIGITAL ARCHAEOLOGY - proposed .gitignore  (Phase 2 proposal, NOT yet tracked)
+# Rule: private research data never enters the repository.
+# ============================================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+
+# --- Editors / OS junk ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Runtime logs (may contain paths) ---
+logs/
+*.log
+scan_resume.json
+
+# --- Streamlit local config ---
+.streamlit/secrets.toml
+
+# --- PRIVATE research data: default-deny everything under data/ ---
+data/
+# belt-and-braces in case data/ is ever added piecewise:
+data/raw/
+data/processed/
+data/database/
+data/snapshots/
+data/_clobber_evidence_*/
+data/_r1_repair_evidence_*/
+*.db
+*.sqlite
+*.sqlite3
+
+# --- Backups & incident evidence (local only, never delete, never publish) ---
+backups/
+*_clobber_evidence*/
+*_r1_repair_evidence*/
+data/_phase3_evidence_*/
+*.bak
+
+# --- Platform runtime outputs (Phase 3): datasets, analyses, registry ---
+# output/metadata/dataset_registry.db and output/datasets/* are local-only.
+output/
+
+# --- Reports: default-deny; allowlist only privacy-reviewed documents ---
+reports/*
+!reports/PROJECT_AUDIT.md
+!reports/PHASE_2_AUDIT.md
+!reports/data_dictionary.md
+# charts/ and research outputs (research_report.md, findings.json,
+# scan_report.json, *.clobbered) stay private unless explicitly reviewed:
+# !reports/charts/
+
+# --- Future user-supplied datasets stay local (README stubs may be tracked) ---
+input_data/csv/*
+input_data/databases/*
+input_data/metadata/*
+!input_data/**/README.md
+!input_data/**/.gitkeep
+
+# --- Local temp / recovery scripts output ---
+*.tmp
+~$*

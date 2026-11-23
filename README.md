@@ -364,14 +364,14 @@ Detailed map: [docs/PROJECT_STRUCTURE.md](docs/PROJECT_STRUCTURE.md).
 All test data is synthetic and written to OS temporary directories; the
 suite runs without any research data present.
 
-**Verified results (Phase 8 verification, 2026-11-23 — historical context,
-re-run after any change):**
+**Verified results (Phase 10 publication verification, 2026-11-23):**
 
-| Environment | Result |
+| Check | Result |
 |---|---|
-| Original workspace (Python 3.11.9, pandas 3.0.5) | **422 passed, 1 skipped, 0 failed** (423 collected) |
-| Isolated clean install (no research data, no scikit-learn) | **420 passed, 3 skipped, 0 failed** |
-| Protected-data integrity gate | **22/22 files byte-identical, exit 0** |
+| Full test suite (Python 3.11.9, pandas 3.0.5) | **422 passed, 1 skipped, 0 failed** (423 collected) |
+| Isolated clean install without research data or scikit-learn (Phase 8) | **420 passed, 3 skipped, 0 failed** |
+| Protected-data integrity (read-only SHA-256 checker) | **22/22 files byte-identical, exit 0** |
+| Documentation link check (17 public docs) | **31/31 links valid, 0 broken** |
 
 Skips are explained in the test suite (OS forbids symlink creation in one
 test; two t-SNE tests skip when the optional scikit-learn is absent).

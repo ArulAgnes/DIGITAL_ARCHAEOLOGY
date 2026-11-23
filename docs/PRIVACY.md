@@ -1,5 +1,9 @@
 # Privacy & Data-Safety Statement
 
+> Comprehensive version (boundaries, storage table, workspace interaction,
+> honest limitations): [PRIVACY_AND_DATA_PROTECTION.md](PRIVACY_AND_DATA_PROTECTION.md).
+> This page stays as the short statement.
+
 This platform is designed so that **user data stays local, research data
 stays untouched, and nothing is executed**.
 

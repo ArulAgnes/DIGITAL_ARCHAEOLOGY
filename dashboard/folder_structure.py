@@ -75,8 +75,13 @@ def render(files: pd.DataFrame, folders: pd.DataFrame, findings: dict,
     st.markdown("**Hierarchical folder tree (sunburst, top 300 by size)**")
     tree = fr.nlargest(300, "total_size_bytes").copy()
     if not tree.empty:
-        parts = (tree["folder_path"].str.replace("D:\\", "", regex=False)
-                 .str.split("\\"))
+        # Strip the actual scan root from the findings (not a hardcoded
+        # drive letter) so labels stay correct on any machine.
+        scan_root = str(((findings or {}).get("scan") or {}).get("root") or "")
+        paths = tree["folder_path"]
+        if scan_root:
+            paths = paths.str.replace(scan_root, "", regex=False)
+        parts = paths.str.lstrip("\\").str.split("\\")
         max_len = max(len(p) for p in parts)
         for i in range(max_len):
             tree[f"L{i}"] = parts.apply(

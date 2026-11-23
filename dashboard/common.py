@@ -86,7 +86,22 @@ def load_data() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, dict]:
 def ensure_data() -> bool:
     if config.PROCESSED_FILES_CSV.exists() or config.FILES_CSV.exists():
         return True
-    st.error("No scan data found. Run `python pipeline.py --scan` first.")
+    st.error(f"No scan data found in {config.DATA_DIR}.")
+    st.markdown("**First-time setup**")
+    st.code(
+        "scripts\\check_environment.bat\n"
+        "scripts\\install_windows.bat\n"
+        "python pipeline.py --scan --scan-root PATH_TO_SCAN",
+        language=None)
+    st.caption(
+        "1) check_environment verifies Python and dependencies  "
+        "2) install_windows creates the virtual environment  "
+        "3) the scan command collects metadata (never file contents) from "
+        "the folder you choose. Launch the dashboard with "
+        "scripts\\run_windows.bat. "
+        f"Active workspace: {config.WORKSPACE_ROOT} "
+        "(change it with the DIGITAL_ARCHAEOLOGY_HOME environment variable)."
+    )
     return False
 
 

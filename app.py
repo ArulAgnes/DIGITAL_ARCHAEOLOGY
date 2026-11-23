@@ -55,9 +55,7 @@ def _header(files: pd.DataFrame, folders: pd.DataFrame, findings: dict):
         "File-System Metadata**")
     scan = findings.get("scan", {})
     if scan:
-        # backslash kept out of the f-string expression (Python < 3.12 rule)
-        default_root = "D:" + "\\"
-        root_label = scan.get("root") or default_root
+        root_label = scan.get("root") or "unknown root"
         st.caption(
             f"Source: `{root_label}` · scan "
             f"`{scan.get('scan_id', 'n/a')}` · {scan.get('status', 'n/a')} · "
@@ -162,7 +160,45 @@ def _snapshot_panel(findings: dict):
                     st.error(f"Snapshot creation failed: {exc}")
 
 
+def _sidebar_workspace():
+    """Display the active workspace and any override warning (Phase 8)."""
+    desc = config.workspace_description()
+    st.sidebar.caption(f"Workspace: `{desc['root']}`")
+    if desc["env_active"]:
+        st.sidebar.caption(f"Environment override: `{desc['env_var']}`")
+    if desc["notice"]:
+        st.sidebar.warning(desc["notice"])
+
+
+def _sidebar_modes():
+    """Short explanation of each application mode (Phase 8 UX)."""
+    with st.sidebar.expander("Modes & pages", expanded=False):
+        st.markdown(
+            "**Digital Archaeology** - the eight research pages over the "
+            "historical metadata scan: Overview, File Creation Timeline, "
+            "Storage Analytics, File Type Analysis, Naming Pattern "
+            "Analysis, Duplicate Analysis, Folder Structure, Research "
+            "Findings.")
+        st.markdown(
+            "**Data Sources** - inspect and register new CSV, SQLite or "
+            "folder inputs; metadata only, no file contents are read.")
+        st.markdown(
+            "**Dataset Analysis** - profile a registered dataset: "
+            "statistics, data quality and distributions.")
+        st.markdown(
+            "**Dataset Comparison** - compare two datasets or two "
+            "historical snapshots.")
+        st.markdown(
+            "**Advanced Visualization** - chart workbench (scatter, bar, "
+            "histogram, pie, heatmap, PCA, t-SNE and more) for the "
+            "currently loaded data.")
+
+
 def main():
+    # Workspace info first: it must be visible even on the first-run page
+    # (before any data exists) so an override is never silent.
+    _sidebar_workspace()
+
     if not ensure_data():
         st.stop()
 
@@ -174,6 +210,7 @@ def main():
 
     st.sidebar.markdown("---")
     page = st.sidebar.radio("Pages", list(PAGES.keys()))
+    _sidebar_modes()
     st.sidebar.markdown("---")
     _snapshot_panel(findings)
 

@@ -47,7 +47,9 @@ def platform_dirs(tmp_path, monkeypatch):
     return out
 
 
-def _research_signature() -> tuple:
+def _research_signature() -> tuple | None:
+    if not (config.FILES_CSV.exists() and config.FOLDERS_CSV.exists()):
+        return None  # clean installation without research data
     out = []
     for path in (config.FILES_CSV, config.FOLDERS_CSV):
         stat = path.stat()

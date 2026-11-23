@@ -80,7 +80,7 @@ def test_validate_table_name_rejects_injection_shapes(tmp_path):
 def test_is_drive_root_detection():
     assert is_drive_root(Path("D:\\"))
     assert is_drive_root(Path("C:/"))
-    assert not is_drive_root(Path("D:\\Data VMini"))
+    assert not is_drive_root(Path("D:\\ExampleWorkspace"))
     assert not is_drive_root(Path("D:\\Users"))
 
 

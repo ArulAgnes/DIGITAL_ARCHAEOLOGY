@@ -1,5 +1,13 @@
 # Architecture
 
+> **Historical (Phase 3 era, 2026-11-16).** The layer sketch below and the
+> package table remain directionally correct, but counts and status lines
+> are outdated (the app now has 12 pages; Phases 4–7 added ingestion UI,
+> the analysis engine, comparisons and the visualization engine; the suite
+> has 423 tests). **Current diagrams and architecture documentation:**
+> [docs/architecture/](architecture/README.md). Folder map:
+> [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md).
+
 Reusable data-analysis platform built in Phase 3 on top of the existing
 Digital Archaeology project. All paths below are relative to
 `<PROJECT_ROOT>`; no personal or machine-specific paths are used in this

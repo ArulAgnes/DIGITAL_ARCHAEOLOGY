@@ -1,5 +1,5 @@
 # ============================================================================
-# DIGITAL ARCHAEOLOGY - proposed .gitignore  (Phase 2 proposal, NOT yet tracked)
+# DIGITAL ARCHAEOLOGY - .gitignore  (tracked since Phase 2; hardened in Phase 10)
 # Rule: private research data never enters the repository.
 # ============================================================================
 
@@ -10,6 +10,14 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+
+# --- Python coverage and packaging (Phase 10 hardening) ---
+.coverage
+.coverage.*
+htmlcov/
+dist/
+build/
+.tox/
 
 # --- Virtual environments ---
 .venv/
@@ -28,7 +36,8 @@ logs/
 *.log
 scan_resume.json
 
-# --- Streamlit local config ---
+# --- Streamlit local config (Phase 10 hardening: whole directory) ---
+.streamlit/
 .streamlit/secrets.toml
 
 # --- PRIVATE research data: default-deny everything under data/ ---
@@ -59,7 +68,9 @@ output/
 reports/*
 !reports/PROJECT_AUDIT.md
 !reports/PHASE_2_AUDIT.md
-!reports/data_dictionary.md
+# reports/data_dictionary.md removed from allowlist in Phase 10 (private
+# research schema — first public release keeps it local):
+# !reports/data_dictionary.md
 # charts/ and research outputs (research_report.md, findings.json,
 # scan_report.json, *.clobbered) stay private unless explicitly reviewed:
 # !reports/charts/
@@ -74,3 +85,29 @@ input_data/metadata/*
 # --- Local temp / recovery scripts output ---
 *.tmp
 ~$*
+
+# --- Root-level research and data exports (Phase 10 hardening) ---
+# Anchored to the repository root only; does not touch input_data/ or docs/.
+/*.csv
+/*.parquet
+/*.xlsx
+
+# --- Excluded from first public release (Phase 10) ---
+# Historical Phase A root documents: machine-specific paths + outdated
+# descriptions (already in git history; never re-staged).
+/EXISTING_ARCHITECTURE.md
+/MISSING_FEATURES.md
+/PHASE_A_REPOSITORY_AUDIT.md
+/PHASE_HISTORY_RECONCILIATION.md
+/PROPOSED_DEVELOPMENT_PLAN.md
+/PYTHON_APPLICATION_ARCHITECTURE.md
+# Research schema dictionary (private in first release):
+/reports/data_dictionary.md
+# Dangerous research utilities — must not ship (Phase 10 Step B):
+/scanner/database_builder.py
+/scripts/rebuild_reports.py
+/scripts/restore_raw_from_db.py
+# Machine-specific hardcoded research DB path (Phase 10 Step B boundary):
+/scripts/verify_db.py
+# Research-archive row inspector (Phase 2 audit: EXCLUDE / MUST REMAIN LOCAL):
+/verify_db.py

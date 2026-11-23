@@ -509,7 +509,7 @@ def test_tsne_builds_or_explains_missing_dependency(frame):
         art = build_chart("tsne_scatter", CFG, roles=roles, frame=frame,
                           source_label="s")
     except PlatformError as exc:
-        assert "scikit-learn" in exc.value.user_message
+        assert "scikit-learn" in exc.user_message
         pytest.skip("scikit-learn not installed in this environment")
     assert len(art.figure.data) >= 1
     joined = " ".join(art.notes).lower()

@@ -41,7 +41,9 @@ def platform_dirs(tmp_path, monkeypatch):
     return out
 
 
-def _research_signature() -> tuple[int, int]:
+def _research_signature() -> tuple[int, int] | None:
+    if not config.FILES_CSV.exists():
+        return None  # clean installation without research data
     stat = config.FILES_CSV.stat()
     return stat.st_size, stat.st_mtime_ns
 

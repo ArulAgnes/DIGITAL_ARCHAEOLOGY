@@ -1,0 +1,16 @@
+[
+  {
+    "snapshot_id": "20261127_142539",
+    "created_at": "2026-11-27T14:25:39",
+    "scan_started_at": "2026-11-27T14:25:39",
+    "scan_finished_at": "2026-11-27T14:25:39",
+    "scan_duration_seconds": 0.03,
+    "status": "completed",
+    "root": "C:\\ARULAGNES",
+    "total_files": 235,
+    "total_folders": 103,
+    "total_storage_bytes": 26677278,
+    "scan_errors": 0,
+    "has_file_level_detail": true
+  }
+]

@@ -40,19 +40,6 @@ scan_resume.json
 .streamlit/
 .streamlit/secrets.toml
 
-# --- PRIVATE research data: default-deny everything under data/ ---
-data/
-# belt-and-braces in case data/ is ever added piecewise:
-data/raw/
-data/processed/
-data/database/
-data/snapshots/
-data/_clobber_evidence_*/
-data/_r1_repair_evidence_*/
-*.db
-*.sqlite
-*.sqlite3
-
 # --- Backups & incident evidence (local only, never delete, never publish) ---
 backups/
 *_clobber_evidence*/
